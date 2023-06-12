@@ -25,22 +25,16 @@ fn main() {
     println!("pe_0012 ans: {} - {:?}", pe_0012(500), now.elapsed());
 }
 
-// この実装では35秒程度
+// この実装では1秒未満
 
 fn pe_0012(threshold: u64) -> u64 {
     let mut triangular_num: u64;
     let mut i: u64 = 2;
-    let ul: u64 = 10000000;
+    let ul: u64 = 1000;
     let pn_list = get_pn_list(ul);
-    // let max_pn = pn_list[pn_list.len() - 1];
 
     loop {
         triangular_num = (1..=i).sum();
-        // if 2 * max_pn < triangular_num {
-        //     ul *= 10;
-        //     pn_list = get_pn_list(ul);
-        //     println!("pe_list updated. {}", ul);
-        // };
         let num_divisors: u64 = prime_factorization(triangular_num, &pn_list)
             .values()
             .map(|x| x + 1)
