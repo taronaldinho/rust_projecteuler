@@ -36,11 +36,11 @@ fn pe_0011(grid: &str) -> i32 {
     let mut arr = Vec::new();
 
     // 改行文字で行を分割。
-    for rows in grid.split("\n") {
+    for row in grid.split("\n") {
         let mut buf = Vec::new();
 
         // スペースで列を分割。
-        for s in rows.split(" ") {
+        for s in row.split(" ") {
             let result: i32 = s.parse().unwrap();
             buf.push(result)
         }
