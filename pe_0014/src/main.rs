@@ -3,10 +3,10 @@ use std::time;
 fn main() {
     // #14 Longest Collatz Sequence - Project Euler
     // https://projecteuler.net/problem=14
+    // https://projecteuler.net/overview=0014
     // The following iterative sequence is defined for the set of positive integers:
-
     // n -> n/2 (n is even)
-    // (n -> 3n+1 (n is odd)
+    // n -> 3n+1 (n is odd)
     // Using the rule above and starting with 13, we generate the following sequence:
     // 13 -> 40 -> 20 -> 10 -> 5 -> 16 -> 8 -> 4 -> 2 -> 1.
     // It can be seen that this sequence (starting at 13 and finishing at 1) contains 10 terms.
@@ -16,25 +16,31 @@ fn main() {
     // Which starting number, under one million, produces the longest chain?
     // NOTE: Once the chain starts the terms are allowed to go above one million.
     let now = time::Instant::now();
-    println!("pe_0014 ans: {} - {:?}", pe_0014(num), now.elapsed());
+    println!("pe_0014 ans: {} - {:?}", pe_0014(1_000_000), now.elapsed())
+    // println!("pe_0014 ans: {} - {:?}", pe_0014(13), now.elapsed());
 }
 
-fn pe_0014(num: u32) -> String {
-    let mut collatz_seq:Vec<u32> = vec![1];
-    let mut n = 1;
-    let target_n: u32;
-    let len: u32 = 1;
-
-    while n <= num {
-        let target_n = n;
-        if collatz_seq.contains(&n) {
-            continue;
-            n += 1;
-        } else {
-
+fn pe_0014(num: u64) -> u64 {
+    let mut i: u64 = 2;
+    let mut max_chain: usize = 1;
+    let mut ret: u64 = i;
+    while i <= num {
+        let mut target = i;
+        let mut chain: Vec<u64> = vec![1];
+        while target != 1 {
+            // println!("i:{}/{}", i, target);
+            chain.push(target);
+            if target % 2 == 1 {
+                target = 3 * target + 1;
+            } else {
+                target /= 2;
+            }
         }
+        if max_chain <= chain.len() {
+            max_chain = chain.len();
+            ret = i;
+        }
+        i += 1;
     }
-
+    ret
 }
-
-fn get_collatz_seq
