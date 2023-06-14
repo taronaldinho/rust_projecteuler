@@ -17,30 +17,31 @@ fn main() {
     // NOTE: Once the chain starts the terms are allowed to go above one million.
     let now = time::Instant::now();
     println!("pe_0014 ans: {} - {:?}", pe_0014(1_000_000), now.elapsed())
-    // println!("pe_0014 ans: {} - {:?}", pe_0014(13), now.elapsed());
 }
 
 fn pe_0014(num: u64) -> u64 {
     let mut i: u64 = 2;
-    let mut max_chain: usize = 1;
+    let mut max_chain_len: usize = 1;
+    // let mut max_chain: Vec<u64> = Vec::new();
     let mut ret: u64 = i;
-    while i <= num {
+    while i < num {
         let mut target = i;
         let mut chain: Vec<u64> = vec![1];
         while target != 1 {
-            // println!("i:{}/{}", i, target);
-            chain.push(target);
+            chain.insert(1, target);
             if target % 2 == 1 {
                 target = 3 * target + 1;
             } else {
                 target /= 2;
             }
         }
-        if max_chain <= chain.len() {
-            max_chain = chain.len();
+        if max_chain_len <= chain.len() {
+            max_chain_len = chain.len();
+            // max_chain = chain;
             ret = i;
         }
         i += 1;
     }
+    // println!("{:?}", max_chain);
     ret
 }
